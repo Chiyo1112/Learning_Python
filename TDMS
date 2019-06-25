@@ -1,2 +1,111 @@
-111
-222
+address_20190513_01 = r'D:\data\20190513\01'
+address_20190513_02 = r'D:\data\20190513\02'
+address_20190513_03 = r'D:\data\20190513\03'
+address_20190513_04 = r'D:\data\20190513\04'
+
+name_vibration_20190513_01 = ['Acc 05-13-19 时间 100515.tdms',
+                        'Acc 05-13-19 时间 100615.tdms',
+                        'Acc 05-13-19 时间 100715.tdms',
+                        'Acc 05-13-19 时间 100816.tdms']
+name_power_20190513_01 = ['Current&Volage 05-13-19 时间 100515.tdms',
+                        'Current&Volage 05-13-19 时间 100615.tdms',
+                        'Current&Volage 05-13-19 时间 100715.tdms',
+                        'Current&Volage 05-13-19 时间 100816.tdms']
+
+name_vibration_20190513_02 = ['Acc 05-13-19 时间 102244.tdms']
+name_power_20190513_02 = ['Current&Volage 05-13-19 时间 102244.tdms']
+
+name_vibration_20190513_03 = ['Acc 05-13-19 时间 110218.tdms']
+name_power_20190513_03 = ['Current&Volage 05-13-19 时间 110218.tdms']
+
+name_vibration_20190513_04 = ['Acc 05-13-19 时间 113528.tdms', 'Acc 05-13-19 时间 113629.tdms', 
+                              'Acc 05-13-19 时间 113729.tdms', 'Acc 05-13-19 时间 113829.tdms',
+                              'Acc 05-13-19 时间 113930.tdms', 'Acc 05-13-19 时间 114030.tdms',
+                              'Acc 05-13-19 时间 114130.tdms', 'Acc 05-13-19 时间 114231.tdms', 
+                              'Acc 05-13-19 时间 114331.tdms', 'Acc 05-13-19 时间 114431.tdms',
+                              'Acc 05-13-19 时间 114532.tdms', 'Acc 05-13-19 时间 114632.tdms', 
+                              'Acc 05-13-19 时间 114732.tdms', 'Acc 05-13-19 时间 114832.tdms', 
+                              'Acc 05-13-19 时间 114933.tdms', 'Acc 05-13-19 时间 115033.tdms',
+                              'Acc 05-13-19 时间 115133.tdms', 'Acc 05-13-19 时间 115234.tdms',
+                              'Acc 05-13-19 时间 115334.tdms', 'Acc 05-13-19 时间 115434.tdms',
+                              'Acc 05-13-19 时间 115534.tdms', 'Acc 05-13-19 时间 115635.tdms',
+                              'Acc 05-13-19 时间 115735.tdms', 'Acc 05-13-19 时间 115835.tdms', 
+                              'Acc 05-13-19 时间 115936.tdms', 'Acc 05-13-19 时间 120036.tdms', 
+                              'Acc 05-13-19 时间 120136.tdms', 'Acc 05-13-19 时间 120236.tdms', 
+                              'Acc 05-13-19 时间 120337.tdms']
+
+name_power_20190513_04 = ['Current&Volage 05-13-19 时间 113528.tdms', 'Current&Volage 05-13-19 时间 113629.tdms',  
+                          'Current&Volage 05-13-19 时间 113729.tdms', 'Current&Volage 05-13-19 时间 113829.tdms', 
+                          'Current&Volage 05-13-19 时间 113930.tdms', 'Current&Volage 05-13-19 时间 114030.tdms', 
+                          'Current&Volage 05-13-19 时间 114130.tdms', 'Current&Volage 05-13-19 时间 114231.tdms', 
+                          'Current&Volage 05-13-19 时间 114331.tdms', 'Current&Volage 05-13-19 时间 114431.tdms', 
+                          'Current&Volage 05-13-19 时间 114532.tdms', 'Current&Volage 05-13-19 时间 114632.tdms', 
+                          'Current&Volage 05-13-19 时间 114732.tdms', 'Current&Volage 05-13-19 时间 114832.tdms',  
+                          'Current&Volage 05-13-19 时间 114933.tdms', 'Current&Volage 05-13-19 时间 115033.tdms', 
+                          'Current&Volage 05-13-19 时间 115133.tdms', 'Current&Volage 05-13-19 时间 115234.tdms', 
+                          'Current&Volage 05-13-19 时间 115334.tdms', 'Current&Volage 05-13-19 时间 115434.tdms', 
+                          'Current&Volage 05-13-19 时间 115534.tdms', 'Current&Volage 05-13-19 时间 115635.tdms', 
+                          'Current&Volage 05-13-19 时间 115735.tdms', 'Current&Volage 05-13-19 时间 115835.tdms', 
+                          'Current&Volage 05-13-19 时间 115936.tdms', 'Current&Volage 05-13-19 时间 120036.tdms', 
+                          'Current&Volage 05-13-19 时间 120136.tdms', 'Current&Volage 05-13-19 时间 120236.tdms', 
+                          'Current&Volage 05-13-19 时间 120337.tdms']
+                          
+class TDMS_Vibrition_Merge():
+    def __init__(self, file_address, file_name, group_name = 'Measured Data'):
+        self.file_address = file_address
+        self.file_name = file_name
+
+        n = 0
+        for i in file_name:
+            real_path = r"{}\{}".format(file_address, file_name[n])
+            TDMS_read = TdmsFile(r'{}'.format(real_path))
+
+            channel_x_0 = TDMS_read.object(group_name, 'x_0')
+            channel_y_0 = TDMS_read.object(group_name, 'y_0')
+            channel_z_0 = TDMS_read.object(group_name, 'z_0')
+            channel_x_1 = TDMS_read.object(group_name, 'x_1')
+            channel_y_1 = TDMS_read.object(group_name, 'y_1')
+            channel_z_1 = TDMS_read.object(group_name, 'z_1')
+
+            getdata_x_0 = channel_x_0.data
+            getdata_y_0 = channel_y_0.data
+            getdata_z_0 = channel_z_0.data
+            getdata_x_1 = channel_x_1.data
+            getdata_y_1 = channel_y_1.data
+            getdata_z_1 = channel_z_1.data
+
+            if n == 0:
+                self.data_x_0 = getdata_x_0
+                self.data_y_0 = getdata_y_0
+                self.data_z_0 = getdata_z_0
+                self.data_x_1 = getdata_x_1
+                self.data_y_1 = getdata_y_1
+                self.data_z_1 = getdata_z_1
+
+            else:
+                self.data_x_0 = np.concatenate((self.data_x_0, getdata_x_0))
+                self.data_y_0 = np.concatenate((self.data_y_0, getdata_y_0))
+                self.data_z_0 = np.concatenate((self.data_z_0, getdata_z_0))
+                self.data_x_1 = np.concatenate((self.data_x_1, getdata_x_1))
+                self.data_y_1 = np.concatenate((self.data_y_1, getdata_y_1))
+                self.data_z_1 = np.concatenate((self.data_z_1, getdata_z_1))
+
+            n += 1
+            
+    def x_0(self):
+        return np.array(self.data_x_0)
+    
+    def y_0(self):
+        return np.array(self.data_y_0)
+    
+    def z_0(self):
+        return np.array(self.data_z_0)
+    
+    def x_1(self):
+        return np.array(self.data_x_1)
+    
+    def y_1(self):
+        return np.array(self.data_y_1)
+
+    def z_1(self):
+        return np.array(self.data_z_1)
