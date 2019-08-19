@@ -20,6 +20,9 @@ end
 k=-29:30;   
 
 subplot(211)
+
+
+
 stem(k,x,'.')
 hold
 plot(k,zeros(size(x)))
